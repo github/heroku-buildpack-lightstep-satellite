@@ -42,7 +42,7 @@ install_lightstep() {
   mkdir -p "$LS_DIR/bin"
   mkdir -p "$PROFILE_DIR"
 
-  cp "$BUILDPACK_DIR/opt/lightstep/collector" "$LS_DIR/collector"
+  cp "$CACHE_DIR/opt/lightstep/collector" "$LS_DIR/collector"
   cp "$BUILDPACK_DIR/extra/lightstep-collector.sh" "$PROFILE_DIR/lightstep-collector.sh"
 }
 
