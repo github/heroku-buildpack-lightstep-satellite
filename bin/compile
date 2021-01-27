@@ -8,6 +8,8 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 BUILDPACK_DIR=$(cd "$(dirname "$0")"; cd ..; pwd)
+LS_DIR="$BUILD_DIR/.lightstep-collector"
+PROFILE_DIR="$BUILD_DIR/.profile.d"
 
 VERSION="2020.09.24.05.22.16Z"
 CACHED_VERSION="$CACHE_DIR/lightstep-collector-$VERSION"
@@ -30,20 +32,18 @@ fetch_lightstep() {
 
     # Only contains usr/share/doc
     rm -rf "$UNPACK_DIR/usr"
-
-    mkdir "$CACHED_VERSION"
-    mv "$UNPACK_DIR/*" "$CACHED_VERSION/"
+    mv "$UNPACK_DIR" "$CACHE_DIR"
   else
     arrow "LightStep collector ${VERSION} found in cache"
   fi
 }
 
 install_lightstep() {
-  mkdir -p "$BUILD_DIR/bin/lightstep-collector"
-  mkdir -p "$BUILD_DIR/.profile.d"
+  mkdir -p "$LS_DIR/bin"
+  mkdir -p "$PROFILE_DIR"
 
-  cp "$CACHE_DIR/opt/lightstep/collector" "$BUILD_DIR/bin/lightstep-collector/collector"
-  cp "$BUILDPACK_DIR/extra/lightstep-collector.sh" "$BUILD_DIR/.profile.d/lightstep-collector.sh"
+  cp "$BUILDPACK_DIR/opt/lightstep/collector" "$LS_DIR/collector"
+  cp "$BUILDPACK_DIR/extra/lightstep-collector.sh" "$PROFILE_DIR/lightstep-collector.sh"
 }
 
 fetch_lightstep
