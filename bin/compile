@@ -1,12 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -eo pipefail
-
-set -x
+# set -x
 
 BUILD_DIR=$1
 CACHE_DIR=$2
-ENV_DIR=$3
 BUILDPACK_DIR=$(cd "$(dirname "$0")"; cd ..; pwd)
 LS_DIR="$BUILD_DIR/.lightstep-collector"
 PROFILE_DIR="$BUILD_DIR/.profile.d"
@@ -34,9 +32,10 @@ fetch_lightstep() {
 }
 
 install_lightstep() {
-  mkdir -p "$PROFILE_DIR"
-
+  mkdir -p "$LS_DIR"
   cp "$CACHED_VERSION/opt/lightstep/collector" "$LS_DIR/collector"
+
+  mkdir -p "$PROFILE_DIR"
   cp "$BUILDPACK_DIR/extra/lightstep-collector.sh" "$PROFILE_DIR/lightstep-collector.sh"
 }
 

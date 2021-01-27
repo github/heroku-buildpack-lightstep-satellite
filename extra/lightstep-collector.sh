@@ -1,14 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ulimit -n $(ulimit -n -H)
 
 LS_DIR="$HOME/.lightstep-collector"
 LS_POOL=${LS_POOL:-heroku}
-LS_GUID="${HEROKU_APP_NAME}-${DYNO}"
+LS_GUID="${LS_SERVICE:-heroku-service}-${DYNO:-unknown-dyno}"
 LS_BYTES_PER_PROJECT=${LS_BYTES_PER_PROJECT:-100000}
 # TODO: metrics
 # TODO: ports
-cat <<EOF > "$LS_DIR/collector.yaml"
+cat <<EOF > "$LS_DIR/config.yaml"
 api_key: ${LS_API_KEY}
 pool: ${LS_POOL}
 guid: ${LS_GUID}
