@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-# set -x
+set -x
 
 BUILD_DIR=$1
 CACHE_DIR=$2
@@ -27,7 +27,7 @@ fetch_lightstep() {
       --content-disposition \
       https://packagecloud.io/lightstep/collector/packages/ubuntu/bionic/lightstep-collector_${VERSION}_amd64.deb/download.deb
 
-    dpkg -x lightstep-collector.deb "$CACHED_VERISON"
+    dpkg -x lightstep-collector.deb "$CACHED_VERSION"
   else
     arrow "LightStep collector ${VERSION} found in cache"
   fi
