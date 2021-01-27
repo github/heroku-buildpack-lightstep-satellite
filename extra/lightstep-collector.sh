@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 ulimit -n $(ulimit -n -H)
 
 LS_DIR="$HOME/.lightstep-collector"
