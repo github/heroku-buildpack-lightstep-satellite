@@ -30,3 +30,5 @@ Additional configuration variables can be found [in LightStep's documentation](h
 ## Notes
 
 We'd love [contributions](./CONTRIBUTING.md) if you have any! We don't have any real roadmap for this buildpack, but we're open to any ideas you may have - [file an issue](https://github.com/github/heroku-buildpack-lightstep-satellite) and let us know what you think!
+
+All discussion should happen on the repo in issues; however, we can also be contacted at `opensource+heroku-buildpack-lightstep-satellite@github.com` if the need arises.
