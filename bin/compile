@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
 set -eo pipefail
-# set -x
+
+if [[ -n "$LS_BUILDPACK_DEBUG" ]]; then
+  set -x
+fi
 
 BUILD_DIR=$1
 CACHE_DIR=$2
