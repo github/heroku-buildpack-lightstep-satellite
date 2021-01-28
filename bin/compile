@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 
 set -eo pipefail
-
-if [[ -n "$LS_BUILDPACK_DEBUG" ]]; then
-  set -x
-fi
+set -x
 
 BUILD_DIR=$1
 CACHE_DIR=$2
@@ -14,68 +11,28 @@ BUILDPACK_DIR=$(cd "$(dirname "$0")"; cd ..; pwd)
 LS_DIR="$BUILD_DIR/.lightstep-collector"
 PROFILE_DIR="$BUILD_DIR/.profile.d"
 
-VERSION="2020.09.24.05.22.16Z"
+VERSION="2021.01.26.23.02.36Z"
 CACHED_VERSION="$CACHE_DIR/lightstep-collector-$VERSION"
 
 arrow() {
   echo '----->' "$@"
 }
 
-fetch_lightstep() {
-  if [ ! -f "$CACHED_VERSION" ]; then
-    arrow "Installing LightStep collector ${VERSION}"
-    wget \
-      -O lightstep-collector.deb \
-      --quiet \
-      --content-disposition \
-      https://packagecloud.io/lightstep/collector/packages/ubuntu/bionic/lightstep-collector_${VERSION}_amd64.deb/download.deb
+if [ ! -f "$CACHED_VERSION" ]; then
+  arrow "Installing LightStep collector ${VERSION}"
+  wget \
+    -O lightstep-collector.deb \
+    --quiet \
+    --content-disposition \
+    https://packagecloud.io/lightstep/collector/packages/ubuntu/bionic/lightstep-collector_${VERSION}_amd64.deb/download.deb
 
-    dpkg -x lightstep-collector.deb "$CACHED_VERSION"
-  else
-    arrow "LightStep collector ${VERSION} found in cache"
-  fi
-}
+  dpkg -x lightstep-collector.deb "$CACHED_VERSION"
+else
+  arrow "LightStep collector ${VERSION} found in cache"
+fi
 
-write_config() {
-  for var in LS_API_KEY LS_POOL LS_SERVICE LS_BYTES_PER_PROJECT; do
-    if [[ -f "$ENV_DIR/$var" ]]; then
-      export "$var=$(cat "$ENV_DIR/$var")"
-    fi
-  done
+mkdir -p "$LS_DIR"
+cp "$CACHED_VERSION/opt/lightstep/collector" "$LS_DIR/collector"
 
-  LS_API_KEY=${LS_API_KEY:-badkey}
-  LS_POOL=${LS_POOL:-heroku}
-  LS_GUID="${LS_SERVICE:-heroku-service}-${DYNO:-unknown-dyno}"
-  LS_BYTES_PER_PROJECT=${LS_BYTES_PER_PROJECT:-100000}
-  cat <<EOF > "$LS_DIR/config.yaml"
-api_key: ${LS_API_KEY}
-pool: ${LS_POOL}
-guid: ${LS_GUID}
-babysitter_port: 8000
-plain_port: 8383
-admin:
-  plain_port: 8080
-http:
-  plain_port: 8181
-grpc:
-  plain_port: 8282
-instrument:
-  start_wait_time_limit: 30s
-reporter:
-  bytes_per_project: ${LS_BYTES_PER_PROJECT}
-  span_group_update_period: 2s
-EOF
-
-}
-
-install_lightstep() {
-  mkdir -p "$LS_DIR"
-  cp "$CACHED_VERSION/opt/lightstep/collector" "$LS_DIR/collector"
-
-  mkdir -p "$PROFILE_DIR"
-  cp "$BUILDPACK_DIR/extra/lightstep-collector.sh" "$PROFILE_DIR/lightstep-collector.sh"
-}
-
-fetch_lightstep
-install_lightstep
-write_config
+mkdir -p "$PROFILE_DIR"
+cp "$BUILDPACK_DIR/extra/lightstep-collector.sh" "$PROFILE_DIR/lightstep-collector.sh"
