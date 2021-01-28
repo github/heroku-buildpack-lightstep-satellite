@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -eo pipefail
-set -x
+# set -x
 
 BUILD_DIR=$1
 CACHE_DIR=$2
@@ -18,7 +18,7 @@ arrow() {
   echo '----->' "$@"
 }
 
-if [ ! -f "$CACHED_VERSION" ]; then
+if [ ! -d "$CACHED_VERSION" ]; then
   arrow "Installing LightStep collector ${VERSION}"
   wget \
     -O lightstep-collector.deb \

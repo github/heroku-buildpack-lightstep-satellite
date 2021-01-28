@@ -33,3 +33,7 @@ Here are a few things you can do that will increase the likelihood of your pull 
 - [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/)
 - [Using Pull Requests](https://help.github.com/articles/about-pull-requests/)
 - [GitHub Help](https://help.github.com)
+
+## Releasing
+
+See the process on the [Heroku documentation](https://devcenter.heroku.com/articles/buildpack-registry#publishing-a-buildpack-version). We use tags to denote a new release.
