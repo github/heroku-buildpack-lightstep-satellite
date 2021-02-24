@@ -17,7 +17,9 @@ Status: proof-of-concept. We're using it internally, but it's not well-tested.
 
 ## Installation
 
-Follow the instructions on the [Heroku Elements page](https://elements.heroku.com/buildpacks/github/heroku-buildpack-lightstep-satellite).
+For now, you'll need to add this repo as a buildpack to your application. We'll release it on Heroku Elements soon!
+
+~Follow the instructions on the [Heroku Elements page](https://elements.heroku.com/buildpacks/github/heroku-buildpack-lightstep-satellite).~
 
 ## Configuration
 
