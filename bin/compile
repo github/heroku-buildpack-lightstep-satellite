@@ -11,7 +11,7 @@ BUILDPACK_DIR=$(cd "$(dirname "$0")"; cd ..; pwd)
 LS_DIR="$BUILD_DIR/.lightstep-collector"
 PROFILE_DIR="$BUILD_DIR/.profile.d"
 
-VERSION="2021.01.26.23.02.36Z"
+VERSION="2021.03.22.13.16.05Z"
 CACHED_VERSION="$CACHE_DIR/lightstep-collector-$VERSION"
 
 arrow() {
