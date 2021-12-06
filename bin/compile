@@ -11,10 +11,8 @@ BUILDPACK_DIR=$(cd "$(dirname "$0")"; cd ..; pwd)
 LS_DIR="$BUILD_DIR/.lightstep-collector"
 PROFILE_DIR="$BUILD_DIR/.profile.d"
 
-VERSION="2021.10.27.20.01.38Z"
+VERSION="2021.01.26.23.02.36Z"
 CACHED_VERSION="$CACHE_DIR/lightstep-collector-$VERSION"
-
-"https://packagecloud.io/lightstep/microsatellite/packages/ubuntu/bionic/lightstep-collector_2021.10.27.20.01.38Z_amd64.deb/download.deb"
 
 arrow() {
   echo '----->' "$@"
@@ -26,7 +24,7 @@ if [ ! -d "$CACHED_VERSION" ]; then
     -O lightstep-collector.deb \
     --quiet \
     --content-disposition \
-    https://packagecloud.io/lightstep/microsatellite/packages/ubuntu/bionic/lightstep-collector_${VERSION}_amd64.deb/download.deb
+    https://packagecloud.io/lightstep/collector/packages/ubuntu/bionic/lightstep-collector_${VERSION}_amd64.deb/download.deb
 
   dpkg -x lightstep-collector.deb "$CACHED_VERSION"
 else
