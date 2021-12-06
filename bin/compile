@@ -14,8 +14,6 @@ PROFILE_DIR="$BUILD_DIR/.profile.d"
 VERSION="2021.10.27.20.01.38Z"
 CACHED_VERSION="$CACHE_DIR/lightstep-collector-$VERSION"
 
-"https://packagecloud.io/lightstep/microsatellite/packages/ubuntu/bionic/lightstep-collector_2021.10.27.20.01.38Z_amd64.deb/download.deb"
-
 arrow() {
   echo '----->' "$@"
 }
